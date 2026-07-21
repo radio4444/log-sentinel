@@ -22,7 +22,7 @@ def corruption_chance():
 
 with open("server_logs.json", "w") as f:
     all_logs = []
-    for log in range(10):
+    for log in range(500):
         random_log_dict = {
             "timestamp": datetime.datetime.now().isoformat(),
             "log_level": random.choice(levels),
@@ -47,4 +47,4 @@ with open("server_logs.json", "w") as f:
             all_logs.append(random_log_dict)
         
         # time.sleep(0.5)
-    f.write(json.dumps(all_logs, indent=4))
+    json.dump(all_logs, f, indent=4)
