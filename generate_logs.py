@@ -2,6 +2,7 @@ import json
 import random
 import datetime
 import time
+import os
 
 levels = ["INFO", "WARN", "ERROR"]
 
@@ -16,11 +17,15 @@ def corruption_chance():
             ),
             "response_time_in_ms": random.randint(10, 1000),
         }
-        rand_corrupt_dict = random.sample(list(corrupt_dict.keys()), random.randint(1,4))
+        rand_corrupt_dict = random.sample(
+            list(corrupt_dict.keys()), random.randint(1, 4)
+        )
         return {key: corrupt_dict[key] for key in rand_corrupt_dict}
 
 
-with open("server_logs.json", "w") as f:
+if not os.path.exists("json"):
+    os.makedirs("json")
+with open("json/server_logs.json", "w") as f:
     all_logs = []
     for log in range(500):
         random_log_dict = {
@@ -45,6 +50,6 @@ with open("server_logs.json", "w") as f:
             all_logs.append(get_corrupted)
         else:
             all_logs.append(random_log_dict)
-        
+
         # time.sleep(0.5)
     json.dump(all_logs, f, indent=4)

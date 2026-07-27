@@ -1,7 +1,8 @@
 import pandas as pd
 import json
+import os
 
-logs = pd.read_json("server_logs.json")
+logs = pd.read_json("json/server_logs.json")
 # Inspect the data
 logs.info()
 print(logs.head())
@@ -9,15 +10,15 @@ print(logs.head())
 
 logs["status_code"] = pd.to_numeric(logs["status_code"], errors="coerce")
 clean_logs = logs.dropna()
-clean_logs['timestamp'] = clean_logs['timestamp'].astype(str)
-clean_logs['status_code'] = clean_logs['status_code'].astype(int)
+clean_logs["timestamp"] = clean_logs["timestamp"].astype(str)
+clean_logs["status_code"] = clean_logs["status_code"].astype(int)
 
 clean_logs.info()
 print(clean_logs.head())
 # Analyze the data
 error_logs = clean_logs[
     (clean_logs["log_level"] == "ERROR") & (clean_logs["status_code"] == 500)
-].to_dict(orient='records')
+].to_dict(orient="records")
 
 
 summary = {
@@ -35,5 +36,8 @@ metrics_dict = {
 print(clean_logs.dtypes)
 
 
-with open("cleaned_metrics.json", "w") as f:
+if not os.path.exists("json"):
+    os.makedirs("json")
+
+with open("json/cleaned_metrics.json", "w") as f:
     json.dump(metrics_dict, f, indent=4)
