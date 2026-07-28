@@ -1,5 +1,5 @@
-import json
 import datetime
+import json
 
 # Define "redline"
 MAX_ALLOWED_AVG_LATENCY_MS = 200.0
@@ -18,7 +18,7 @@ total_errors_counts = len(flagged_errors)
 
 # Initialize health_report_dict and empty active_alerts array
 health_report_dict = {
-    "timestamp": datetime.datetime.now().isoformat(),
+    "timestamp": datetime.datetime.now(tz=datetime.UTC).isoformat(),
     "status": "HEALTHY",
 }
 active_alerts = []
