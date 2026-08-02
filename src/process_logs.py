@@ -1,11 +1,12 @@
-import pandas as pd
 import json
 import os
 
+import pandas as pd
+
 logs = pd.read_json("json/server_logs.json")
 # Inspect the data
-logs.info()
-print(logs.head())
+# logs.info()
+# print(logs.head())
 # Clean the data: Match proper datatype for each column and Drop NaN value
 
 logs["status_code"] = pd.to_numeric(logs["status_code"], errors="coerce")
@@ -13,8 +14,8 @@ clean_logs = logs.dropna()
 clean_logs["timestamp"] = clean_logs["timestamp"].astype(str)
 clean_logs["status_code"] = clean_logs["status_code"].astype(int)
 
-clean_logs.info()
-print(clean_logs.head())
+# clean_logs.info()
+# print(clean_logs.head())
 # Analyze the data
 error_logs = clean_logs[
     (clean_logs["log_level"] == "ERROR") & (clean_logs["status_code"] == 500)
@@ -33,7 +34,7 @@ metrics_dict = {
     "flagged_errors": error_logs,
 }
 
-print(clean_logs.dtypes)
+# print(clean_logs.dtypes)
 
 
 if not os.path.exists("json"):

@@ -1,16 +1,16 @@
-import json
-import random
 import datetime
-import time
+import json
 import os
+import random
+import time
 
 levels = ["INFO", "WARN", "ERROR"]
-
+timestamp = datetime.datetime.now(tz=datetime.UTC).isoformat()
 
 def corruption_chance():
     if random.random() < 0.5:
         corrupt_dict = {
-            "timestamp": datetime.datetime.now().isoformat(),
+            "timestamp": timestamp,
             "log_level": random.choice(levels),
             "status_code": random.choice(
                 ["200", "404", "500", "SUCCESS", "NO", "FAIL"]
@@ -29,7 +29,7 @@ with open("json/server_logs.json", "w") as f:
     all_logs = []
     for log in range(500):
         random_log_dict = {
-            "timestamp": datetime.datetime.now().isoformat(),
+            "timestamp": timestamp,
             "log_level": random.choice(levels),
             "status_code": 0,
             "response_time_in_ms": 0,
@@ -51,5 +51,6 @@ with open("json/server_logs.json", "w") as f:
         else:
             all_logs.append(random_log_dict)
 
-        # time.sleep(0.5)
+
+        time.sleep(0.1)
     json.dump(all_logs, f, indent=4)

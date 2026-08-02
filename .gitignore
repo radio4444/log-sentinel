@@ -1,2 +1,4 @@
 # Ignore the folder and all its contents
 json/
+node_modules/
+src/testing.py
