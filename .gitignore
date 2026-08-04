@@ -1,4 +1,15 @@
-# Ignore the folder and all its contents
-json/
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Dependencies
 node_modules/
-src/testing.py
+
+# Generated Pipeline Data
+json/
+
+# Python & System Caches
+__pycache__/
+*.pyc
+.DS_Store
